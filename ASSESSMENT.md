@@ -1,4 +1,4 @@
-# Programming Against Interfaces Challenge - Assessment
+# Interface Collections Challenge - Assessment
 
 ## Before You Start
 Please note that assessment is only available to BrightGen employees or by prior 
