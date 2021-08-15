@@ -1,35 +1,72 @@
 public with sharing class Race 
 {
     // choose the appropriate variable type here
-    racers;
+    private List<VehicleIF> racers;
 
     public Race() 
     {
-        // initialise racers
+        racers=new List<VehicleIF>();
     }
 
-    public void addRacer(update_type_here racer)
+    public void addRacer(VehicleIF racer)
     {
-        // add the racer to the racers variable
+        racers.add(racer);
     }
 
     public void start() 
     {
-        // iterate all racers and ask them to start
+        for (VehicleIF racer : racers)
+        {
+            racer.start();
+        }
     }
 
     public void flatOut()
     {
-        // iterate all racers, move them up through their gears until
-        // there are no more left
+        List<VehicleIF> acceleratingRacers=racers.clone();
+        List<VehicleIF> toRemove=new List<VehicleIF>();
+        while (!acceleratingRacers.isEmpty())
+        {
+            for (VehicleIF racer : acceleratingRacers)
+            {
+                if (!racer.gearUp()) 
+                { 
+                    toRemove.add(racer);
+                }
+            }
+
+            for (VehicleIF removeRacer : toRemove)
+            {
+                acceleratingRacers.remove(acceleratingRacers.indexOf(removeRacer));
+            }
+            toRemove.clear();
+        }
     }
 
     public void finish()
     {
-        // iterate all racers, move them down through their gears
-        // until they are in first, then ask them to stop
+        List<VehicleIF> deceleratingRacers=racers.clone();
+        List<VehicleIF> toRemove=new List<VehicleIF>();
+        while (!deceleratingRacers.isEmpty())
+        {
+            for (VehicleIF racer : deceleratingRacers)
+            {
+                if (!racer.gearDown()) 
+                { 
+                    toRemove.add(racer);
+                }
+            }
 
-        // all racers should drop down one gear at a time.
-        // once a racer has hit first gear it should be skipped
+            for (VehicleIF removeRacer : toRemove)
+            {
+                deceleratingRacers.remove(deceleratingRacers.indexOf(removeRacer));
+            }
+            toRemove.clear();
+        }
+
+        for (VehicleIF racer : racers)
+        {
+            racer.stop();
+        }
     }
 }

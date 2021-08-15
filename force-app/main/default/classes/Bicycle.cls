@@ -1,9 +1,15 @@
-public with sharing class Bicycle 
+public with sharing class Bicycle implements VehicleIF
 {
     // bikes have front and rear cassettes. 
+
     // they accelerate by moving up through the rear gears,
     // then simultaneously moving to the next front gear while
     // dropping back to the first rear gear
+
+    // the decelerate by moving down through the rear gears
+    // then simultaneously moving down the front gear while
+    // moving to the highest rear gear
+
     private Integer frontGears;
     private Integer rearGears;
 
@@ -17,4 +23,55 @@ public with sharing class Bicycle
         this.frontGears=frontGears;
         this.rearGears=rearGears;
     }
+    
+
+    public void start() 
+    {
+        // bicycle is already in gear
+    }
+
+    public Boolean gearUp()
+    {
+        Boolean changedGearUp=true;
+        if (this.currentRearGear<this.rearGears)
+        {
+            this.currentRearGear++;
+        }
+        else if (this.currentFrontGear<this.frontGears)
+        {
+            this.currentFrontGear++;
+            this.currentRearGear=1;
+        }
+        else {
+            changedGearUp=false;
+        }
+
+        return changedGearUp;
+    }
+
+    public Boolean gearDown()
+    {
+        Boolean changedGearDown=true;
+        if (this.currentRearGear>1)
+        {
+            this.currentRearGear--;
+        }
+        else if (this.currentFrontGear>1)
+        {
+            this.currentFrontGear--;
+            this.currentRearGear=this.rearGears;
+        }
+        else {
+            changedGearDown=false;
+        }
+
+        return changedGearDown;
+    }
+
+    // takes the vehicle out of gear
+    public void stop()
+    {
+        // bikes cannot come out of gear
+    }
+
 }
