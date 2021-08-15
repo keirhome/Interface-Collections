@@ -1,4 +1,4 @@
-# Programming Against Interfaces Challenge
+# Interface Collections Challenge
 
 ## About
 

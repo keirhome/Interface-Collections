@@ -2,8 +2,14 @@ public with sharing class TrackDay
 {
     private static Race race=new Race();
 
-    public RunRace()
+    public void runRace()
     {
-        // create one each of bicycle, car and truck and race them
+        race.addRacer(new Bicycle(7, 3));
+        race.addRacer(new Car(6));
+        race.addRacer(new Truck(13));
+
+        race.start();
+        race.flatOut();
+        race.finish();
     }
 }
